@@ -60,11 +60,6 @@ function run_registry() {
     return execute_command(registryCommand, registryArgs);
 }
 
-function bind_registry() {
-    // docker run --rm -it --network=host alpine ash -c "apk add socat && socat TCP-LISTEN:5000,reuseaddr,fork TCP:$(minikube ip):5000"
-    return execute_command('docker',['run', '--rm', '-it', '--network=host', 'alpine', 'ash', '-c', '"apk add socat && socat TCP-LISTEN:5000,reuseaddr,fork TCP:$(minikube ip):5000"']);
-}
-
 function start_minikube() {
     const kubernetesVersion = core.getInput('k8s-version');
     core.exportVariable('CHANGE_MINIKUBE_NONE_USER', 'true');
@@ -79,7 +74,7 @@ function start_minikube() {
 }
 
 try {
-    if (install_deps() || install_minikube() || run_registry() || start_minikube() || wait_for_minikube() || bind_registry()) {
+    if (install_deps() || install_minikube() || run_registry() || start_minikube() || wait_for_minikube()) {
         core.setFailed(error.message);    
     }
     
