@@ -74,7 +74,7 @@ function start_minikube() {
 }
 
 try {
-    if (install_deps() || install_minikube() || run_registry() || start_minikube() || wait_for_minikube()) {
+    if (install_deps() || install_minikube() || start_minikube() || run_registry() || wait_for_minikube()) {
         core.setFailed(error.message);    
     }
     
